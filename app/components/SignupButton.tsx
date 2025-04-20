@@ -1,70 +1,83 @@
 'use client'
+
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { cn } from '@/lib/utils'
-import clsx from 'clsx'
 import React from 'react'
 import { createPortal } from 'react-dom'
 
 export default function SignupButton() {
-    const [isShow, setIsShow] = React.useState(false)
-    // const [state,signupActions,isPending]=useActionState(signupAction,0)
-    const [isSignup, setSignup] = React.useState(true)
-    function Signup() {
-        console.log('Signup')
-    }
-    function Signing() {
-        console.log('Signing')
-    }
-    const style = clsx({
-        'text-2xl text-black        ': isSignup,
-        'text-base text-gray-200     ': !isSignup,
-    })
-    const style2 = clsx({
-        'text-2xl text-black ': !isSignup,
-        'text-base text-gray-200  ': isSignup,
-    })
-    return (
-        <>
-            <Button onClick={() => { setIsShow(true) }}>signup</Button>
-            {isShow && createPortal(<div className='fixed inset-0 bg-black/70 z-50
-       
-            '>
-                <form
-                    className='absolute top-1/2 left-1/2 -translate-1/2 max-w-[700px] min-h-[200px] border p-4 border-gray-200
-              rounded-2xl flex flex-col bg-white gap-4'
-                // action={signupActions}
-                >
-                    <span className='font-bold text-center'>{isSignup ? 'signup' : 'signing'}</span>
-                    <label>
-                        email
-                        <Input name="email" />
-                    </label>
-                    <label>
-                        password
-                        <Input name="password" type='password' />
-                    </label>
-                    <Button type="submit"
-                        onClick={(e) => {
-                            e.preventDefault();
+  const [isShow, setIsShow] = React.useState(false)
+  const [isSignup, setIsSignup] = React.useState(true)
 
-                            if (isSignup) {
-                                Signup();
-                            } else {
-                                Signing();
-                            }
-                        }}>submit</Button>
-                    <div className='flex '>
-                        <div onClick={() => { setSignup(true); }}
-                            className={cn('transition-all duration-300 ease-in-out',style)}
-                        >signup</div>/
-                        <div
-                            className={cn('transition-all duration-300 ease-in-out',style2)}
-                            onClick={() => { setSignup(false); }}  >signing</div>
-                    </div>
-                </form>
-            </div>, document.body)}
-        </>
+  function handleSignup() {
+    console.log('Signup')
+  }
 
-    )
+  function handleLogin() {
+    console.log('Login')
+  }
+
+  return (
+    <>
+      <Button onClick={() => setIsShow(true)}>Signup</Button>
+
+      {isShow && createPortal(
+        <div
+          className="fixed inset-0 bg-black/70 z-50 flex items-center justify-center"
+          onClick={() => setIsShow(false)} // ✅ 点击背景关闭
+        >
+          <form
+            onClick={(e) => e.stopPropagation()} // ✅ 阻止点击表单冒泡关闭
+            className="max-w-[700px] min-w-[350px] w-full min-h-[300px] border p-6 border-gray-200 rounded-2xl bg-white flex flex-col gap-4 shadow-lg"
+            onSubmit={(e) => {
+              e.preventDefault()
+              isSignup ? handleSignup() : handleLogin()
+            }}
+          >
+            <h2 className="text-xl font-bold text-center">
+              {isSignup ? 'Sign Up' : 'Sign In'}
+            </h2>
+
+            <label className="space-y-1">
+              <span className="text-sm font-medium text-gray-600">Email</span>
+              <Input name="email" />
+            </label>
+
+            <label className="space-y-1">
+              <span className="text-sm font-medium text-gray-600">Password</span>
+              <Input name="password" type="password" />
+            </label>
+
+            <Button type="submit" className="w-full">
+              {isSignup ? 'Create Account' : 'Login'}
+            </Button>
+
+            <div className="flex justify-center space-x-4 text-sm mt-2">
+              <span
+                onClick={() => setIsSignup(true)}
+                className={cn(
+                  'cursor-pointer transition-all',
+                  isSignup ? 'font-bold text-black underline' : 'text-gray-400 hover:text-black'
+                )}
+              >
+                Sign Up
+              </span>
+              <span>/</span>
+              <span
+                onClick={() => setIsSignup(false)}
+                className={cn(
+                  'cursor-pointer transition-all',
+                  !isSignup ? 'font-bold text-black underline' : 'text-gray-400 hover:text-black'
+                )}
+              >
+                Sign In
+              </span>
+            </div>
+          </form>
+        </div>,
+        document.body
+      )}
+    </>
+  )
 }
