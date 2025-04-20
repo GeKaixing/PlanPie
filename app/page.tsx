@@ -1,103 +1,54 @@
-import Image from "next/image";
-
-export default function Home() {
+'use server'
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { getTodos } from "@/lib/data";
+import { prisma } from "@/lib/prisma";
+import { revalidatePath } from "next/cache";
+import DeleteButton from "./components/DeleteButton";
+import UpDateButton from "./components/UpDateButton";
+import SignupButton from "./components/SignupButton";
+export async function addAction(formData: FormData) {
+  'use server'
+  const content = formData.get('content') as string;
+  if (!content) return;
+  await prisma.todo.create({
+    data: {
+      userId: 'bfddcb1b-5526-4db0-9ee4-74bb026f7c3b',
+      title: 'elsa@prisma.io',
+      content: content,
+    },
+  })
+  revalidatePath('/')
+}
+export default async function Home() {
+  const todos = await getTodos('bfddcb1b-5526-4db0-9ee4-74bb026f7c3b');
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <div className="w-full h-full">
+      <div className="absolute top-1/2 left-1/2 -translate-1/2 max-w-[600px] min-h-[200px] border p-4 border-gray-200 
+      focus:border-gray-400  hover:border-gray-400 rounded-2xl flex flex-col gap-4
+      ">
+        <div className="flex gap-2 ml-auto">
+          <SignupButton></SignupButton>
+          <Button>signing</Button>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+        <form className=" flex gap-2 w-full " action={addAction}>
+          <Input name="content" placeholder="add your todolist " className="w-full"></Input>
+          <Button
+            type="submit"
+          >submit</Button>
+        </form>
+        <ul className="space-y-2">
+          {todos.map(item => <li key={item.id} className="border  flex items-center justify-between border-gray-200 hover:border-gray-200  rounded-2xl p-4">
+            <span className="font-bold ">{item.title}</span>
+            {item.content || "null"}
+            <div className="self-end space-x-2 flex">
+              <DeleteButton id={item.id}></DeleteButton>
+              <UpDateButton id={item.id} content={item.content}  ></UpDateButton>
+            </div>
+          </li>)
+          }
+        </ul>
+      </div>
     </div>
   );
 }
