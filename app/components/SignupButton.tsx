@@ -2,8 +2,8 @@
 
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { createClient } from '@/lib/supabase/supabase'
 import { cn } from '@/lib/utils'
+import { useRouter } from 'next/navigation'
 import React from 'react'
 import { createPortal } from 'react-dom'
 
@@ -13,24 +13,11 @@ export default function SignupButton() {
   const [loading, setLoading] = React.useState(false)
   const [error, setError] = React.useState('')
   const [formData, setFormData] = React.useState({ email: '', password: '' })
-
-  const supabase = createClient()
+  const router=useRouter()
 
   async function handleSignup() {
     setLoading(true)
     setError('')
-
-    const { data, error } = await supabase.auth.signUp({
-      email: formData.email,
-      password: formData.password,
-    })
-
-    if (error) {
-      setError(error.message)
-    } else {
-      alert('Signup successful. Please check your email to confirm.')
-      setIsShow(false)
-    }
 
     setLoading(false)
   }
@@ -38,19 +25,24 @@ export default function SignupButton() {
   async function handleLogin() {
     setLoading(true)
     setError('')
-
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email: formData.email,
-      password: formData.password,
+    if(!formData.email)return;
+    if(!formData.password)return;
+   const res= await fetch('/api/login', {
+      method: 'POST', 
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: formData.email,
+        password: formData.password,
+      }),
     })
-
-    if (error) {
-      setError(error.message)
-    } else {
-      alert('Login successful!')
-      setIsShow(false)
+    if(res.ok){
+      window.location.reload()
+    }else{
+      const d =await res.json()
+      console.log(d)
     }
-
     setLoading(false)
   }
 
@@ -106,8 +98,8 @@ export default function SignupButton() {
                     ? 'Creating...'
                     : 'Logging in...'
                   : isSignup
-                  ? 'Create Account'
-                  : 'Login'}
+                    ? 'Create Account'
+                    : 'Login'}
               </Button>
 
               <div className="flex justify-center space-x-4 text-sm mt-2">
