@@ -2,8 +2,7 @@
 import { prisma } from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 
-export async function getTodos(Id) {
-  console.log(Id);
+export async function getTodos(Id:string) {
   return await prisma.todo.findMany({
     where: { userId: Id },
   });
@@ -28,7 +27,7 @@ export async function updateTodo(id: string, content: string) {
   });
 }
 
-export async function updateTodoAction(prevState: any, formData: FormData) {
+export async function updateTodoAction( formData: FormData) {
   const content = formData.get("content") as string;
   const id = formData.get("id") as string;
   console.log(id)
