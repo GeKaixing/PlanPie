@@ -32,14 +32,13 @@ export default async function Home() {
   if (user) {
     // console.log(user)
     todos = await getTodos(user.id);
-
     return (
       <div className="w-full h-full">
         <div className="absolute top-1/2 left-1/2 -translate-1/2 max-w-[600px] min-h-[200px] border p-4 border-gray-200 
       focus:border-gray-400  hover:border-gray-400 rounded-2xl flex flex-col gap-4
       ">
           <div className="flex gap-2 ml-auto items-center">
-            x2890901420@gmail.com 
+            {user.email}
             <LogoutButton>logout</LogoutButton>
           </div>
           <form className=" flex gap-2 w-full " action={addAction}>

@@ -16,17 +16,10 @@ export default function SignupButton() {
   async function handleSignup() {
     setLoading(true)
     setError('')
-
-    setLoading(false)
-  }
-
-  async function handleLogin() {
-    setLoading(true)
-    setError('')
-    if(!formData.email)return;
-    if(!formData.password)return;
-   const res= await fetch('/api/login', {
-      method: 'POST', 
+    if (!formData.email) return;
+    if (!formData.password) return;
+    const res = await fetch('/api/sign-up', {
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
@@ -35,10 +28,34 @@ export default function SignupButton() {
         password: formData.password,
       }),
     })
-    if(res.ok){
+    if (res.ok) {
+      // window.location.reload()
+    } else {
+      const d = await res.json()
+      console.log(d)
+    }
+    setLoading(false)
+  }
+
+  async function handleLogin() {
+    setLoading(true)
+    setError('')
+    if (!formData.email) return;
+    if (!formData.password) return;
+    const res = await fetch('/api/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: formData.email,
+        password: formData.password,
+      }),
+    })
+    if (res.ok) {
       window.location.reload()
-    }else{
-      const d =await res.json()
+    } else {
+      const d = await res.json()
       console.log(d)
     }
     setLoading(false)
