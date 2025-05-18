@@ -3,7 +3,6 @@
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { cn } from '@/lib/utils'
-import { useRouter } from 'next/navigation'
 import React from 'react'
 import { createPortal } from 'react-dom'
 
@@ -13,7 +12,6 @@ export default function SignupButton() {
   const [loading, setLoading] = React.useState(false)
   const [error, setError] = React.useState('')
   const [formData, setFormData] = React.useState({ email: '', password: '' })
-  const router=useRouter()
 
   async function handleSignup() {
     setLoading(true)
@@ -53,7 +51,7 @@ export default function SignupButton() {
 
   return (
     <>
-      <Button onClick={() => setIsShow(true)}>Signup</Button>
+      <Button onClick={() => setIsShow(true)}>Sign Up/Sign In</Button>
 
       {isShow &&
         createPortal(
