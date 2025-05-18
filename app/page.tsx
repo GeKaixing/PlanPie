@@ -7,6 +7,7 @@ import { revalidatePath } from "next/cache";
 import DeleteButton from "./components/DeleteButton";
 import UpDateButton from "./components/UpDateButton";
 import SignupButton from "./components/SignupButton";
+import { createClient } from "@/lib/supabase/supabase";
 export async function addAction(formData: FormData) {
   'use server'
   const content = formData.get('content') as string;
@@ -22,6 +23,9 @@ export async function addAction(formData: FormData) {
 }
 export default async function Home() {
   const todos = await getTodos('bfddcb1b-5526-4db0-9ee4-74bb026f7c3b');
+  const supabase = createClient()
+  const { data } = await supabase.auth.getSession()
+  console.log(data)
   return (
     <div className="w-full h-full">
       <div className="absolute top-1/2 left-1/2 -translate-1/2 max-w-[600px] min-h-[200px] border p-4 border-gray-200 
