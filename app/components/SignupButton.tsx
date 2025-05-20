@@ -6,9 +6,11 @@ import { cn } from '@/lib/utils'
 import React from 'react'
 import { createPortal } from 'react-dom'
 
+type Mode = 'signup' | 'signin' | 'forgot-password'
+
 export default function SignupButton() {
   const [isShow, setIsShow] = React.useState(false)
-  const [isSignup, setIsSignup] = React.useState(true)
+  const [mode, setMode] = React.useState<Mode>('signup')
   const [loading, setLoading] = React.useState(false)
   const [error, setError] = React.useState('')
   const [formData, setFormData] = React.useState({ email: '', password: '' })
@@ -16,23 +18,17 @@ export default function SignupButton() {
   async function handleSignup() {
     setLoading(true)
     setError('')
-    if (!formData.email) return;
-    if (!formData.password) return;
     const res = await fetch('/api/sign-up', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email: formData.email,
-        password: formData.password,
-      }),
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(formData),
     })
     if (res.ok) {
       // window.location.reload()
     } else {
       const d = await res.json()
       console.log(d)
+      setError(d.message || 'Sign up failed')
     }
     setLoading(false)
   }
@@ -40,23 +36,35 @@ export default function SignupButton() {
   async function handleLogin() {
     setLoading(true)
     setError('')
-    if (!formData.email) return;
-    if (!formData.password) return;
     const res = await fetch('/api/login', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email: formData.email,
-        password: formData.password,
-      }),
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(formData),
     })
     if (res.ok) {
       window.location.reload()
     } else {
       const d = await res.json()
       console.log(d)
+      setError(d.message || 'Login failed')
+    }
+    setLoading(false)
+  }
+
+  async function handleForgotPassword() {
+    setLoading(true)
+    setError('')
+    const res = await fetch('/api/forgot-password', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: formData.email }),
+    })
+    if (res.ok) {
+      setError('Check your email for reset link.')
+    } else {
+      const d = await res.json()
+      console.log(d)
+      setError(d.message || 'Failed to send reset link')
     }
     setLoading(false)
   }
@@ -66,9 +74,19 @@ export default function SignupButton() {
     setFormData((prev) => ({ ...prev, [name]: value }))
   }
 
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault()
+    if (!formData.email) return
+    if (mode !== 'forgot-password' && !formData.password) return
+
+    if (mode === 'signup') handleSignup()
+    else if (mode === 'signin') handleLogin()
+    else if (mode === 'forgot-password') handleForgotPassword()
+  }
+
   return (
     <>
-      <Button onClick={() => setIsShow(true)}>Sign Up/Sign In</Button>
+      <Button onClick={() => setIsShow(true)}>Sign Up / Sign In</Button>
 
       {isShow &&
         createPortal(
@@ -79,13 +97,10 @@ export default function SignupButton() {
             <form
               onClick={(e) => e.stopPropagation()}
               className="max-w-[700px] min-w-[350px] w-full min-h-[300px] border p-6 border-gray-200 rounded-2xl bg-white flex flex-col gap-4 shadow-lg"
-              onSubmit={(e) => {
-                e.preventDefault()
-                isSignup ? handleSignup() : handleLogin()
-              }}
+              onSubmit={handleSubmit}
             >
-              <h2 className="text-xl font-bold text-center">
-                {isSignup ? 'Sign Up' : 'Sign In'}
+              <h2 className="text-xl font-bold text-center capitalize">
+                {mode.replace('-', ' ')}
               </h2>
 
               <label className="space-y-1">
@@ -93,15 +108,17 @@ export default function SignupButton() {
                 <Input name="email" value={formData.email} onChange={handleChange} />
               </label>
 
-              <label className="space-y-1">
-                <span className="text-sm font-medium text-gray-600">Password</span>
-                <Input
-                  name="password"
-                  type="password"
-                  value={formData.password}
-                  onChange={handleChange}
-                />
-              </label>
+              {mode !== 'forgot-password' && (
+                <label className="space-y-1">
+                  <span className="text-sm font-medium text-gray-600">Password</span>
+                  <Input
+                    name="password"
+                    type="password"
+                    value={formData.password}
+                    onChange={handleChange}
+                  />
+                </label>
+              )}
 
               {error && (
                 <div className="text-red-500 text-sm text-center">{error}</div>
@@ -109,33 +126,47 @@ export default function SignupButton() {
 
               <Button type="submit" className="w-full" disabled={loading}>
                 {loading
-                  ? isSignup
+                  ? mode === 'signup'
                     ? 'Creating...'
-                    : 'Logging in...'
-                  : isSignup
+                    : mode === 'signin'
+                      ? 'Logging in...'
+                      : 'Sending...'
+                  : mode === 'signup'
                     ? 'Create Account'
-                    : 'Login'}
+                    : mode === 'signin'
+                      ? 'Login'
+                      : 'Send Reset Link'}
               </Button>
 
               <div className="flex justify-center space-x-4 text-sm mt-2">
                 <span
-                  onClick={() => setIsSignup(true)}
+                  onClick={() => setMode('signup')}
                   className={cn(
                     'cursor-pointer transition-all',
-                    isSignup ? 'font-bold text-black underline' : 'text-gray-400 hover:text-black'
+                    mode === 'signup' ? 'font-bold text-black underline' : 'text-gray-400 hover:text-black'
                   )}
                 >
                   Sign Up
                 </span>
                 <span>/</span>
                 <span
-                  onClick={() => setIsSignup(false)}
+                  onClick={() => setMode('signin')}
                   className={cn(
                     'cursor-pointer transition-all',
-                    !isSignup ? 'font-bold text-black underline' : 'text-gray-400 hover:text-black'
+                    mode === 'signin' ? 'font-bold text-black underline' : 'text-gray-400 hover:text-black'
                   )}
                 >
                   Sign In
+                </span>
+                <span>/</span>
+                <span
+                  onClick={() => setMode('forgot-password')}
+                  className={cn(
+                    'cursor-pointer transition-all',
+                    mode === 'forgot-password' ? 'font-bold text-black underline' : 'text-gray-400 hover:text-black'
+                  )}
+                >
+                  Forgot Password
                 </span>
               </div>
             </form>
