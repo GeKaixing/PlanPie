@@ -13,7 +13,7 @@ export async function addAction(formData: FormData) {
   'use server'
   const content = formData.get('content') as string;
   const userId = formData.get('userId') as string;
-  console.log(userId)
+  console.log('111',userId)
   if (!content) return;
   await prisma.todo.create({
     data: {
@@ -29,6 +29,7 @@ export default async function Home() {
   let todos;
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser()
+  console.log(user)
   if (user) {
     // console.log(user)
     todos = await getTodos(user.id);

@@ -45,9 +45,10 @@ export async function POST(request: Request) {
     email,
     password,
     options: {
-      emailRedirectTo: 'http://localhost:3000/auth/callback'
-    }
+      emailRedirectTo: "http://localhost:3000/auth/callback",
+    },
   });
+
   if (error) {
     return NextResponse.json(
       {
@@ -59,6 +60,18 @@ export async function POST(request: Request) {
     );
   }
   if (data) {
+    if (data.user) {
+      const res = await prisma.user.create({
+        data: {
+          name: email,
+          password: password,
+          id: data.user.id,
+          email: data.user.email!,
+        },
+      });
+      console.log(res)
+    }
+
     return NextResponse.json(
       {
         data: data,

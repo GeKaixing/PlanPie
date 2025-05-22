@@ -12,10 +12,9 @@ export default function EmailConfirmedPage() {
   useEffect(() => {
     const checkSession = async () => {
       const {
-        data: { session },
+        data,
       } = await supabase.auth.getSession()
-
-      if (session) {
+      if (data.session) {
         setMessage('邮箱确认成功，正在跳转...')
         router.push('/')
       } else {
