@@ -27,17 +27,22 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        style={{
+          backgroundImage: 'url(/ruben-mavarez-uxtHSKGPBQM-unsplash.jpg)',
+          backgroundSize: 'cover',
+          backgroundRepeat: 'no-repeat',
+          minHeight: '100vh',
+        }}
       >
         {children}
-        <div className=" w-full absolute flex justify-center items-center bottom-1">
-          <div className="text-gray-400 flex justify-center items-center flex-col">
-            <Link href={'/terms-of-service'} className="hover:underline hover:text-black">Terms of Service</Link>
-            <p></p>
-            <Link href={'/privacy-policy'} className="hover:underline hover:text-black">Privacy Policy</Link>
-            <Link href={'/'} className="hover:underline hover:text-black">Home</Link>
+        <div className="w-full absolute flex justify-center items-center bottom-1">
+          <div className="text-gray-900 flex justify-center items-center flex-col">
+        <Link href="/terms-of-service" className="hover:underline hover:text-black">Terms of Service</Link>
+        <p></p>
+        <Link href="/privacy-policy" className="hover:underline hover:text-black">Privacy Policy</Link>
+        <Link href="/" className="hover:underline hover:text-black">Home</Link>
           </div>
         </div>
-
       </body>
     </html>
   );

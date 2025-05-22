@@ -2,7 +2,69 @@
 
 export default function TermsOfService() {
     return (
-        <>
+        <>            <main className="flex justify-center items-center min-h-screen bg-gray-50 px-4 py-12">
+            <div className="max-w-3xl w-full bg-white shadow-md rounded-xl p-8">
+                <h1 className="text-3xl font-bold text-center mb-2">🔐 Privacy Policy</h1>
+                <p className="text-center text-sm text-gray-500 mb-6">Last Updated: May 17, 2025</p>
+
+                <p>
+                    Towel ("we", "our", or "the Site") respects your privacy. This Privacy Policy explains how we collect, use, disclose, and protect your personal information.
+                </p>
+
+                <h2 className="text-xl font-semibold mt-6">1. Information We Collect</h2>
+                <ul className="list-disc list-inside">
+                    <li><strong>Information you provide:</strong> such as name, email, or profile information when registering.</li>
+                    <li><strong>Automatically collected:</strong> like IP address, browser type, and usage data.</li>
+                    <li><strong>Cookies:</strong> used to enhance functionality and personalize your experience.</li>
+                </ul>
+
+                <h2 className="text-xl font-semibold mt-6">2. How We Use Information</h2>
+                <ul className="list-disc list-inside">
+                    <li>To operate and maintain the Site</li>
+                    <li>To improve user experience</li>
+                    <li>To send important account or service updates</li>
+                    <li>To respond to support requests</li>
+                    <li>To comply with legal obligations</li>
+                </ul>
+
+                <h2 className="text-xl font-semibold mt-6">3. Sharing of Information</h2>
+                <ul className="list-disc list-inside">
+                    <li>With your consent</li>
+                    <li>With service providers that support our Site</li>
+                    <li>To comply with legal requirements</li>
+                </ul>
+
+                <h2 className="text-xl font-semibold mt-6">4. Data Security</h2>
+                <p>
+                    We take reasonable measures to protect your personal information, but no system is completely secure.
+                </p>
+
+                <h2 className="text-xl font-semibold mt-6">5. Your Rights</h2>
+                <p>
+                    You may access, correct, or delete your personal data by contacting us at the email below.
+                </p>
+
+                <h2 className="text-xl font-semibold mt-6">6. Third-Party Services</h2>
+                <p>
+                    Our Site may use third-party tools or services, which are subject to their own privacy policies.
+                </p>
+
+                <h2 className="text-xl font-semibold mt-6">7. Children’s Privacy</h2>
+                <p>
+                    Our Site is not intended for children under 13. We do not knowingly collect information from children.
+                </p>
+
+                <h2 className="text-xl font-semibold mt-6">8. Updates</h2>
+                <p>
+                    We may update this Privacy Policy from time to time. We will post the updated version on this page with a new effective date.
+                </p>
+
+                <h2 className="text-xl font-semibold mt-6">9. Contact</h2>
+                <p>
+                    If you have any questions about this Privacy Policy, please contact us at x2890901420@gmail.com.
+                </p>
+            </div>
+        </main>
 
             <main className="flex justify-center items-center min-h-screen bg-gray-50 px-4 py-12">
                 <div className="max-w-3xl w-full bg-white shadow-md rounded-xl p-8">
@@ -45,69 +107,6 @@ export default function TermsOfService() {
 
                     <h2 className="text-xl font-semibold mt-6">10. 联系我们</h2>
                     <p>如对本条款有任何疑问，请通过 x2890901420@gmail.com 与我们联系。</p>
-                </div>
-            </main>
-            <main className="flex justify-center items-center min-h-screen bg-gray-50 px-4 py-12">
-                <div className="max-w-3xl w-full bg-white shadow-md rounded-xl p-8">
-                    <h1 className="text-3xl font-bold text-center mb-2">🔐 Privacy Policy</h1>
-                    <p className="text-center text-sm text-gray-500 mb-6">Last Updated: May 17, 2025</p>
-
-                    <p>
-                        Towel ("we", "our", or "the Site") respects your privacy. This Privacy Policy explains how we collect, use, disclose, and protect your personal information.
-                    </p>
-
-                    <h2 className="text-xl font-semibold mt-6">1. Information We Collect</h2>
-                    <ul className="list-disc list-inside">
-                        <li><strong>Information you provide:</strong> such as name, email, or profile information when registering.</li>
-                        <li><strong>Automatically collected:</strong> like IP address, browser type, and usage data.</li>
-                        <li><strong>Cookies:</strong> used to enhance functionality and personalize your experience.</li>
-                    </ul>
-
-                    <h2 className="text-xl font-semibold mt-6">2. How We Use Information</h2>
-                    <ul className="list-disc list-inside">
-                        <li>To operate and maintain the Site</li>
-                        <li>To improve user experience</li>
-                        <li>To send important account or service updates</li>
-                        <li>To respond to support requests</li>
-                        <li>To comply with legal obligations</li>
-                    </ul>
-
-                    <h2 className="text-xl font-semibold mt-6">3. Sharing of Information</h2>
-                    <ul className="list-disc list-inside">
-                        <li>With your consent</li>
-                        <li>With service providers that support our Site</li>
-                        <li>To comply with legal requirements</li>
-                    </ul>
-
-                    <h2 className="text-xl font-semibold mt-6">4. Data Security</h2>
-                    <p>
-                        We take reasonable measures to protect your personal information, but no system is completely secure.
-                    </p>
-
-                    <h2 className="text-xl font-semibold mt-6">5. Your Rights</h2>
-                    <p>
-                        You may access, correct, or delete your personal data by contacting us at the email below.
-                    </p>
-
-                    <h2 className="text-xl font-semibold mt-6">6. Third-Party Services</h2>
-                    <p>
-                        Our Site may use third-party tools or services, which are subject to their own privacy policies.
-                    </p>
-
-                    <h2 className="text-xl font-semibold mt-6">7. Children’s Privacy</h2>
-                    <p>
-                        Our Site is not intended for children under 13. We do not knowingly collect information from children.
-                    </p>
-
-                    <h2 className="text-xl font-semibold mt-6">8. Updates</h2>
-                    <p>
-                        We may update this Privacy Policy from time to time. We will post the updated version on this page with a new effective date.
-                    </p>
-
-                    <h2 className="text-xl font-semibold mt-6">9. Contact</h2>
-                    <p>
-                        If you have any questions about this Privacy Policy, please contact us at x2890901420@gmail.com.
-                    </p>
                 </div>
             </main>
         </>
