@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
+import LevelUp from "./components/LevelUp";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -40,6 +41,7 @@ export default function RootLayout({
         <Link href="/terms-of-service" className="hover:underline hover:text-black">Terms of Service</Link>
         <p></p>
         <Link href="/privacy-policy" className="hover:underline hover:text-black">Privacy Policy</Link>
+        <LevelUp></LevelUp>
         <Link href="/" className="hover:underline hover:text-black">Home</Link>
           </div>
         </div>
