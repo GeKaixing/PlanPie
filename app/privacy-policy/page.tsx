@@ -10,7 +10,7 @@ export default function PrivacyPolicy() {
                     <p className="text-center text-sm text-gray-500 mb-6">Last Updated: May 17, 2025</p>
 
                     <p>
-                        Towel ("we", "our", or "the Site") respects your privacy. This Privacy Policy explains how we collect, use, disclose, and protect your personal information.
+                        Towel (&quot;we&quot;, &quot;our&quot;, or &quot;the Site&quot;) respects your privacy. This Privacy Policy explains how we collect, use, disclose, and protect your personal information.
                     </p>
 
                     <h2 className="text-xl font-semibold mt-6">1. Information We Collect</h2>

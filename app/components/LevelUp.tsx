@@ -25,7 +25,13 @@ export default function LevelUp() {
                     <span>
                         ✔️   添加更多内容
                     </span>
-                    <Button>buy</Button>
+                    <form action="/api/checkout_sessions" method="POST">
+                        <section>
+                            <Button type="submit" role="link">
+                                Checkout
+                            </Button>
+                        </section>
+                    </form>
                 </div>
 
             </div >}
