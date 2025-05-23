@@ -30,7 +30,6 @@ export async function updateTodo(id: string, content: string) {
 export async function updateTodoAction( formData: FormData) {
   const content = formData.get("content") as string;
   const id = formData.get("id") as string;
-  console.log(id)
   if (!content || !id) return;
 
   await prisma.todo.update({
