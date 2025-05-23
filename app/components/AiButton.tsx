@@ -1,23 +1,19 @@
 'use client'
 
-import { Button } from '@/components/ui/button';
 import React, { useState } from 'react'
-import { Assistant } from '../assistant';
+import { AssistantRuntimeProvider } from "@assistant-ui/react";
+import { useChatRuntime } from "@assistant-ui/react-ai-sdk";
+import { Thread } from "@/components/assistant-ui/thread";
+// import { ThreadList } from "@/components/assistant-ui/thread-list";
+
 
 export default function AiButton() {
     const [isShow, setShow] = useState(false)
-    const [prompt, setPrompt] = useState('');
-    const [response, setResponse] = useState('');
+    const runtime = useChatRuntime({
+        api: "/api/chat",
+    });
 
-    const handleSubmit = async () => {
-        const res = await fetch('/api/chat', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ prompt }),
-        });
-        const data = await res.json();
-        setResponse(data.result);
-    };
+    
     return (
         <>
             <div
@@ -29,27 +25,22 @@ export default function AiButton() {
                     setShow(false)
                 }}
                 className='bg-black/30 fixed inset-0 flex justify-center items-center'>
-               <div
+                <div
                     onClick={e => e.stopPropagation()}
                     className='w-full max-w-[410px] h-[500px] bg-red-100 flex justify-center items-center flex-col gap-4 '>
-                    {/* <main className="h-[500px] p-8 ">
-                        <h1 className="text-3xl font-bold mb-4">AI Chat App</h1>
-                        <textarea
-                            className="w-full p-2 border rounded mb-4"
-                            rows={4}
-                            value={prompt}
-                            onChange={(e) => setPrompt(e.target.value)}
-                        />
-                        <Button
-                            onClick={handleSubmit}
-                        >
-                            Submit
-                        </Button>
-                        {response && <div className="mt-4 p-4 bg-white rounded">{response}</div>}
-                    </main> */}
-                     <Assistant></Assistant>
-                </div> 
-               
+                    <AssistantRuntimeProvider runtime={runtime}>
+                        <div className="w-full h-full relative" >
+                            <div
+                                onClick={() => {
+                                    setShow(false)
+                                }}
+                                className='absolute top-1 right-1 w-10 h-10 bg-pink-50 hover:bg-pink-100 rounded-full flex justify-center items-center font-bold text-2xl cursor-pointer'>x</div>
+                            {/* <ThreadList /> */}
+                            <Thread />
+                        </div>
+                    </AssistantRuntimeProvider>
+                </div>
+
             </div>}
         </>
     )
