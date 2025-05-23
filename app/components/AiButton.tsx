@@ -47,8 +47,9 @@ export default function AiButton() {
                         </Button>
                         {response && <div className="mt-4 p-4 bg-white rounded">{response}</div>}
                     </main> */}
+                     <Assistant></Assistant>
                 </div> 
-                <Assistant></Assistant>
+               
             </div>}
         </>
     )

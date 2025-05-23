@@ -12,7 +12,7 @@ export const Assistant = () => {
 
   return (
     <AssistantRuntimeProvider runtime={runtime}>
-      <div className="grid h-dvh grid-cols-[200px_1fr] gap-x-2 px-4 py-4">
+      <div className="w-full h-full">
         {/* <ThreadList /> */}
         <Thread />
       </div>
