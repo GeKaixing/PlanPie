@@ -1,7 +1,7 @@
 import { createServerClient } from '@supabase/ssr'
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 
-export async function updateSession(request) {
+export async function updateSession(request:NextRequest) {
   let supabaseResponse = NextResponse.next({
     request,
   })

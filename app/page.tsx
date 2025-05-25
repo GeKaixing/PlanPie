@@ -10,7 +10,7 @@ import SignupButton from "./components/SignupButton";
 import { createClient } from "@/lib/supabase/server";
 import LogoutButton from "./components/LogoutButton";
 import AiButton from "./components/AiButton";
-export async function addAction(formData: FormData) {
+ async function addAction(formData: FormData) {
   'use server'
   const content = formData.get('content') as string;
   const userId = formData.get('userId') as string;

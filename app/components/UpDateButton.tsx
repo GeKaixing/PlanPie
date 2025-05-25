@@ -9,7 +9,10 @@ import { useActionState } from 'react'
 
 export default function UpDateButton({ id, content }: { id: string, content: string }) {
   const [isShow, setIsShow] = React.useState(false)
-  const [state, formAction, isPending] = useActionState(updateTodoAction, { success: false })
+   const actionWrapper = async (_state: { success: boolean }, formData: FormData) => {
+    return await updateTodoAction(formData) ?? { success: false }
+  }
+  const [state, formAction, isPending] = useActionState(actionWrapper, { success: false })
 
   useEffect(() => {
     if (state?.success) {
