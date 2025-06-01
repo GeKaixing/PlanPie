@@ -4,6 +4,7 @@ import "./globals.css";
 import Link from "next/link";
 import LevelUp from "./components/LevelUp";
 
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -26,7 +27,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-    <meta name="google-site-verification" content="J4NJPtZuJi3XSWFkuCWPAfANYe0cc0RBLMkQ7HZPhYk" />
+      <head>
+        <meta name="google-site-verification" content="J4NJPtZuJi3XSWFkuCWPAfANYe0cc0RBLMkQ7HZPhYk" />
+        <script async type="module" src= '/cookieconsent-config.js'></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@3.1.0/dist/cookieconsent.css"></link>
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         style={{
@@ -39,11 +44,11 @@ export default function RootLayout({
         {children}
         <div className="w-full absolute flex justify-center items-center bottom-1">
           <div className="text-gray-900 flex justify-center items-center flex-col">
-        <Link href="/terms-of-service" className="hover:underline hover:text-black">Terms of Service</Link>
-        <p></p>
-        <Link href="/privacy-policy" className="hover:underline hover:text-black">Privacy Policy</Link>
-        <LevelUp></LevelUp>
-        <Link href="/" className="hover:underline hover:text-black">Home</Link>
+            <Link href="/terms-of-service" className="hover:underline hover:text-black">Terms of Service</Link>
+            <p></p>
+            <Link href="/privacy-policy" className="hover:underline hover:text-black">Privacy Policy</Link>
+            <LevelUp></LevelUp>
+            <Link href="/" className="hover:underline hover:text-black">Home</Link>
           </div>
         </div>
       </body>
