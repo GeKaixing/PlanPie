@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
 import LevelUp from "./components/LevelUp";
+import Script from "next/script";
 
 
 const geistSans = Geist({
@@ -31,17 +32,19 @@ export default function RootLayout({
         <meta name="google-site-verification" content="J4NJPtZuJi3XSWFkuCWPAfANYe0cc0RBLMkQ7HZPhYk" />
         <script async type="module" src='/cookieconsent-config.js'></script>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@3.1.0/dist/cookieconsent.css"></link>
-      </head>
-      <script type="text/javascript">
-        {`
-       (function(c,l,a,r,i,t,y){
-          c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments) };
+        <Script
+          id="clarity-script"
+          strategy="afterInteractive"
+        >
+          {`
+      (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
         t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
         y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "rthiq9rvo6");
-      `}
-
-      </script>
+      })(window, document, "clarity", "script", "rthiq9rvo6");
+    `}
+        </Script>
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         style={{
