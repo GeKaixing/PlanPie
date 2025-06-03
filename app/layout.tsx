@@ -44,6 +44,15 @@ export default function RootLayout({
       })(window, document, "clarity", "script", "rthiq9rvo6");
     `}
         </Script>
+        <Script async src="https://www.googletagmanager.com/gtag/js?id=G-7RKB7LMNCG"></Script>
+        <Script
+          id="google-script"
+          strategy="afterInteractive">
+          {` window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-7RKB7LMNCG')`}
+        </Script>
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
