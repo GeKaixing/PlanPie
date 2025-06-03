@@ -29,9 +29,19 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <meta name="google-site-verification" content="J4NJPtZuJi3XSWFkuCWPAfANYe0cc0RBLMkQ7HZPhYk" />
-        <script async type="module" src= '/cookieconsent-config.js'></script>
+        <script async type="module" src='/cookieconsent-config.js'></script>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@3.1.0/dist/cookieconsent.css"></link>
       </head>
+      <script type="text/javascript">
+        {`
+       (function(c,l,a,r,i,t,y){
+          c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments) };
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "rthiq9rvo6");
+      `}
+
+      </script>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         style={{
